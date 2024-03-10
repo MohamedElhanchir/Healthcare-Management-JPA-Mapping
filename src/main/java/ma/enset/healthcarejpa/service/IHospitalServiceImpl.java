@@ -1,5 +1,6 @@
-package service;
+package ma.enset.healthcarejpa.service;
 
+import jakarta.transaction.Transactional;
 import ma.enset.healthcarejpa.entities.Consultation;
 import ma.enset.healthcarejpa.entities.Medecin;
 import ma.enset.healthcarejpa.entities.Patient;
@@ -8,7 +9,10 @@ import ma.enset.healthcarejpa.repositories.ConsultationRepository;
 import ma.enset.healthcarejpa.repositories.MedecinRepository;
 import ma.enset.healthcarejpa.repositories.PatientRepository;
 import ma.enset.healthcarejpa.repositories.RendezVousRepository;
+import org.springframework.stereotype.Service;
 
+@Service
+@Transactional
 public class IHospitalServiceImpl implements IHospitalService {
     /*
     * @Autowired
@@ -39,13 +43,28 @@ public class IHospitalServiceImpl implements IHospitalService {
     }
 
     @Override
+    public Patient findPatientById(Long id) {
+        return patientRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public Medecin saveMedecin(Medecin m) {
             return medecinRepository.save(m);
     }
 
     @Override
+    public Medecin findMedecinById(Long id) {
+        return medecinRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public RendezVous saveRendezVous(RendezVous r) {
         return rendezVousRepository.save(r);
+    }
+
+    @Override
+    public RendezVous findRendezVousById(Long id) {
+        return rendezVousRepository.findById(id).orElse(null);
     }
 
     @Override
